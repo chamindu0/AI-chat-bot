@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/home.css" />
+    <link rel="stylesheet" href="./css/chat.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Document</title>
+  </head>
+  <body background="./img/party.jpg " style="background-repeat: no-repeat; background-size: cover;">
+
+  <h1>Let's Enjoy!</h1>
+  <p class="para">Your Ultimate Event Companion.</p>
+ 
+<!-- navbar -->
+    <div>
+      <ul>
+        <li><a href="">Home</a></li>
+        <li><a href="">About</a></li>
+        <li><a href="">Contact</a></li>
+      </ul>
+    </div>
+    <!--Chat bar block-->
+    <div class="chat-bar-collapsible">
+      <button
+        id="chat-button"
+        type="button"
+        style="font-size:35px;padding-bottom:1px; padding-top:1px;  display: flex ; width:600px;"
+        class="collapsible"
+      >
+        <span style="-webkit-text-stroke: 1px rgb(15, 174, 210); padding-left:60px; padding-top:54px;">Mr.Chat</span>
+        
+        <img
+          id="image"
+          class="profile"
+          src="./img/mrbean.jpg"
+          style="margin: 10px; margin-left: 200px;  border-radius: 50%; "
+          width="110px"
+          alt="..."
+        />
+      </button>
+
+      <div class="content">
+        <div class="full-chat-block">
+          <!-- Message Container -->
+          <div class="outer-container">
+            <div  id ="botText" class="chat-container">
+              <!-- Messages -->
+              <div id="chatbox">
+                <h5 id="chat-timestamp"></h5>
+                </p>
+              </div>
+
+              <!-- User input box -->
+              <div class="chat-bar-input-block">
+                <div id="userInput">
+                  <input
+                    id="textInput"
+                    class="input-box"
+                    type="text"
+                    name="msg"
+                    placeholder="Tap 'Enter' to send a message"
+                  />
+                  <p></p>
+                </div>
+
+                <div class="chat-bar-icons">
+
+                  <img src="./svg/send.svg" id="sendBtn" style="color: #333;" class="fa fa-fw fa-send"  >
+    
+                  </i>
+                </div>
+              </div>
+
+              <div id="chat-bar-bottom">
+                  <p></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="./js/script.js"></script>
+  </body>
+</html>
