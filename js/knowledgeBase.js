@@ -1,14 +1,17 @@
+import rememberName from "./remembername.js";
+import tellJoke from "./random.js";
+import {sayHi} from "./random.js";
 
 
 
-var knowledgeBase = [
+export var knowledgeBase = [
   {
     message: "hello",
-    response: "My name is Bean. I am a chatbot.",
+    response: "My name is Mr.chat.I am a event management chatbot.How can I help you?",
   },
   {
     message: "hi",
-    response: "hi,nice to see you",
+    response: sayHi,
   },
 
   {
@@ -18,8 +21,7 @@ var knowledgeBase = [
   },
   {
     message: "tell me a joke",
-    response:
-      "Why don't scientists trust atoms? Because they make up everything!",
+    response: tellJoke,
   },
   {
     message: "that is a bad joke",
@@ -49,7 +51,7 @@ var knowledgeBase = [
   {
     message: "can you dance?",
     response:
-      "of course I can, look at me dancing. I'm so funny, I can dance to any beat I want!",
+      "of course I can, look at me dancing., I can dance to any beat I want!",
   },
   {
     message: "you are boring",
@@ -101,7 +103,7 @@ var knowledgeBase = [
   {
     message: "today is my birthday",
     response:
-      "I am happy to have a birthday with you!let's have a funny birthday!",
+      "happy birthday, to you!!!!!!!"
   },
   {
     message: "eat something",
@@ -119,6 +121,30 @@ var knowledgeBase = [
     message: "its my birthday",
     response: "happy birthday",
   },
+    {
+    message: "i am",
+    response: rememberName,
+  },
+      {
+    message: "my name is",
+    response: rememberName,
+  },
+  {
+    message: "i'm",
+    response: rememberName,
+  },    
+  {
+    message: "bye",
+    response: rememberName,
+  },
+  {
+    message: "goodbye",
+    response: rememberName,
+  },
+  {
+    message: "i leave",
+    response: rememberName,
+  }
 
 ];
 

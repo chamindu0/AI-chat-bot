@@ -1,9 +1,9 @@
-import  rememberName  from "./remembername.js";
-import knowledgeBase from "./knowledgeBase.js";
 
+import knowledgeBase from "./knowledgeBase.js";
+import selfLearn from "./learn.js";
 
 var sendBtn = document.getElementById("sendBtn");
-var textbox = document.getElementById("textInput");
+export var textbox = document.getElementById("textInput");
 var image = document.getElementById("image");
 
 // Collapsible
@@ -46,7 +46,6 @@ function sendMessage(userMessage) {
 //handle Chatbot Messages
 function chatBotRespond(userMessage) {
   let chatBotMessage= "";
-  const keywords = ["name", "i am", "i'm", "bye", "goodbye", "i leave"];
 
   if (userMessage == "") {
     chatBotMessage =
@@ -55,22 +54,17 @@ function chatBotRespond(userMessage) {
   
   //fillter message from the knowledge base
   if (userMessage != "") {
-    var result = knowledgeBase.filter((val) =>
-      val.message.includes(userMessage.toLowerCase())
-    );
-   
-    if (result.length > 0 ) {
+    var result = knowledgeBase.find(val =>
+    userMessage.toLowerCase().startsWith(val.message.toLowerCase()));
+    console.log(result);
 
-      chatBotMessage = result[0].response;
+    if ( result && typeof result.response === 'function') {
+        chatBotMessage = result.response(userMessage);
+    } else if ( result && typeof result.response === 'string') {
+        chatBotMessage = result.response;
+      
    
-
-    }else if (keywords.some(keyword => userMessage.toLowerCase().includes(keyword))) {
-        rememberName(userMessage);
-    }
-          
-    
-    
-    else if (userMessage.toLowerCase().includes("events")){
+    }else if (userMessage.toLowerCase().includes("events")){
     fetch('http://127.0.0.1:5501/server/events.txt')
     .then(response => response.text())
     .then(data => {
@@ -95,14 +89,23 @@ function chatBotRespond(userMessage) {
     
     
     else {
-      chatBotMessage =
-        "I am not sure what you mean. Please ask me something else.";
+       
+       chatBotMessage = selfLearn(userMessage);
     }
   }
 
  if (chatBotMessage != ""){
   appendMessage(chatBotMessage);
  }
+  
+//  var userQuestion = userMessage
+//   console.log(userQuestion);
+//  if (chatBotMessage === "I don't know about that. Can you teach me?") {
+   
+//     var userAnswer =userMessage;
+//     console.log(userAnswer);
+//     //knowledgeBase.push({ question: userQuestion, answer: userAnswer });
+//  }
 
 
 }
