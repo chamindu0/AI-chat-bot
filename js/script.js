@@ -1,6 +1,8 @@
-
+import eventsList from "./eventList.js";
 import knowledgeBase from "./knowledgeBase.js";
 import selfLearn from "./learn.js";
+import eventDetails from "./eventsDetails.js";
+
 
 var sendBtn = document.getElementById("sendBtn");
 export var textbox = document.getElementById("textInput");
@@ -24,11 +26,37 @@ for (let i = 0; i < coll.length; i++) {
   });
 }
 
-
-
 const events = [
-  { name: 'Event 1', date: 'May 15, 2024', location: 'Main Hall' },
-  { name: 'Event 2', date: 'June 10, 2024', location: 'Auditorium' }
+  {
+    event: "Birthday party",
+    date: "May 31, 2024",
+    location: "Room 5",
+    organize: "batch 1",
+  },
+  {
+    event: "conference",
+    date: "June 10, 2024",
+    location: "Auditorium",
+    organize: "batch 76",
+  },
+    {
+    event: "debate",
+    date: "June 22, 2024",
+    location: "Room 9",
+    organize: "batch 79",
+  },
+  {
+    event: "career fair",
+    date: "June 31, 2024",
+    location: "Room 15",
+    organize: "batch 80",
+  },
+    {
+    event: "Anual Trip",
+    date: "July 7;, 2024",
+    location: "Gall",
+    organize: "batch 66",
+  },
 ];
 
 //handle user Messages
@@ -45,72 +73,53 @@ function sendMessage(userMessage) {
 
 //handle Chatbot Messages
 function chatBotRespond(userMessage) {
-  let chatBotMessage= "";
+  let chatBotMessage = "";
 
   if (userMessage == "") {
     chatBotMessage =
       "Hey buddy!! say something to me, I am too bored now,let's have a little fun";
   }
-  
+
   //fillter message from the knowledge base
   if (userMessage != "") {
-    var result = knowledgeBase.find(val =>
-    userMessage.toLowerCase().startsWith(val.message.toLowerCase()));
-    console.log(result);
+    var result;
 
-    if ( result && typeof result.response === 'function') {
-        chatBotMessage = result.response(userMessage);
-    } else if ( result && typeof result.response === 'string') {
-        chatBotMessage = result.response;
-      
-   
-    }else if (userMessage.toLowerCase().includes("events")){
-    fetch('http://127.0.0.1:5501/server/events.txt')
-    .then(response => response.text())
-    .then(data => {
-      const lines = data.split('\\n'); // Split the text into lines
-      const formattedLines = lines.map(line => `${line}<br>`).join(''); // Add HTML line breaks
-      const messageElement = document.createElement("div");
-      messageElement.innerHTML = `<p class="botText"><span>I can help you manage a wide range of events,including:<br>${formattedLines} </span>`;
-      $("#chatbox").append(messageElement);
-      document.getElementById("chat-bar-bottom").scrollIntoView(true);
- 
-    })
-   
-     
-    } else if (userMessage.toLowerCase().includes("schedule")){
+    result = knowledgeBase.find((val) =>
+      userMessage.toLowerCase().startsWith(val.message.toLowerCase())
+    );
 
-  
-     events.forEach((event, index) => {
-     chatBotMessage += `Event ${index + 1}: ${event.name}, Date: ${event.date}, Location: ${event.location}\n`;
-    });
-       
-    }
-    
-    
-    else {
-       
-       chatBotMessage = selfLearn(userMessage);
+
+    if (result && typeof result.response === "function") {
+      chatBotMessage = result.response(userMessage);
+    } else if (result && typeof result.response === "string") {
+      chatBotMessage = result.response;
+    } else if (userMessage.toLowerCase().includes("events")) {
+      eventsList();
+    } else if (userMessage.toLowerCase().includes("schedule")) {
+      events.forEach((event, index) => {
+        chatBotMessage += `Event ${index + 1}: ${event.event}, Date: ${
+          event.date
+        }, Location: ${event.location}\n`;
+      });
+      } else if (userMessage.toLowerCase().includes("plan")) {
+
+      let result = eventDetails.find((val) =>
+      userMessage.toLowerCase().includes(val.message.toLowerCase())
+    );
+          chatBotMessage = result.response;
+        
+   
+    } else {
+      chatBotMessage = selfLearn(userMessage);
     }
   }
 
- if (chatBotMessage != ""){
-  appendMessage(chatBotMessage);
- }
-  
-//  var userQuestion = userMessage
-//   console.log(userQuestion);
-//  if (chatBotMessage === "I don't know about that. Can you teach me?") {
-   
-//     var userAnswer =userMessage;
-//     console.log(userAnswer);
-//     //knowledgeBase.push({ question: userQuestion, answer: userAnswer });
-//  }
-
-
+  if (chatBotMessage != "") {
+    appendMessage(chatBotMessage);
+  }
 }
 
-//append messages to the 
+//append messages to the chat box
 export function appendMessage(message) {
   const messageElement = document.createElement("div");
   messageElement.innerHTML = `<p class="botText"><span>${message}</span>`;
@@ -150,9 +159,9 @@ function changeAction(userMessage) {
   image.src = imagePath;
 }
 
-//send message user click 
+//send message user click
 function handleUserInputs() {
-  var user= {message: ""};
+  var user = { message: "" };
   var userMessage = textbox.value;
 
   let userMessageText = userMessage.trim();
@@ -161,12 +170,12 @@ function handleUserInputs() {
   sendMessage(userMessageText);
   chatBotRespond(userMessageText);
   changeAction(userMessageText);
-};
+}
 
-sendBtn.addEventListener('click', handleUserInputs);
+sendBtn.addEventListener("click", handleUserInputs);
 
-textbox.addEventListener('keypress', function(event) {
-      if (event.key === 'Enter') {
-        handleUserInputs();
-      }
+textbox.addEventListener("keypress", function (event) {
+  if (event.key === "Enter") {
+    handleUserInputs();
+  }
 });

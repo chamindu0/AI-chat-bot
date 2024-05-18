@@ -9,6 +9,15 @@ export var knowledgeBase = [
     message: "hello",
     response: "My name is Mr.chat.I am a event management chatbot.How can I help you?",
   },
+    {
+    message: "what is your name?",
+    response: "My name is Mr.chat.I am a event management chatbot.How can I help you?",
+  },
+      {
+    message: "who are you?",
+    response: "I am Mr.chat.I am a event management chatbot.How can I help you?",
+  },
+
   {
     message: "hi",
     response: sayHi,

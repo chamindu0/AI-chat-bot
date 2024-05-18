@@ -374,8 +374,9 @@ li a {
     }
 
     .para {
+      font-family:Alice;  
       font-size: 1.3rem;
-      color: #bd63eeb7;
+      color: #ffffffb7;
       margin:0;
       -webkit-text-stroke: 0.3px rgb(0, 0, 0); /* Add text border for WebKit browsers */
       
