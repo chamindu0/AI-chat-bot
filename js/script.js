@@ -3,10 +3,11 @@ import knowledgeBase from "./knowledgeBase.js";
 import selfLearn from "./learn.js";
 import eventDetails from "./eventsDetails.js";
 
-
 var sendBtn = document.getElementById("sendBtn");
 export var textbox = document.getElementById("textInput");
 var image = document.getElementById("image");
+var listnBtn = document.getElementById("listenBtn");
+var speakBtn = document.getElementById("speakBtn");
 
 // Collapsible
 
@@ -39,7 +40,7 @@ const events = [
     location: "Auditorium",
     organize: "batch 76",
   },
-    {
+  {
     event: "debate",
     date: "June 22, 2024",
     location: "Room 9",
@@ -51,7 +52,7 @@ const events = [
     location: "Room 15",
     organize: "batch 80",
   },
-    {
+  {
     event: "Anual Trip",
     date: "July 7;, 2024",
     location: "Gall",
@@ -88,7 +89,6 @@ function chatBotRespond(userMessage) {
       userMessage.toLowerCase().startsWith(val.message.toLowerCase())
     );
 
-
     if (result && typeof result.response === "function") {
       chatBotMessage = result.response(userMessage);
     } else if (result && typeof result.response === "string") {
@@ -101,14 +101,11 @@ function chatBotRespond(userMessage) {
           event.date
         }, Location: ${event.location}\n`;
       });
-      } else if (userMessage.toLowerCase().includes("plan")) {
-
+    } else if (userMessage.toLowerCase().includes("plan")) {
       let result = eventDetails.find((val) =>
-      userMessage.toLowerCase().includes(val.message.toLowerCase())
-    );
-          chatBotMessage = result.response;
-        
-   
+        userMessage.toLowerCase().includes(val.message.toLowerCase())
+      );
+      chatBotMessage = result.response;
     } else {
       chatBotMessage = selfLearn(userMessage);
     }
@@ -119,13 +116,28 @@ function chatBotRespond(userMessage) {
   }
 }
 
+//speaking function
+function speakText(text) {
+  const cleanedText = text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "");
+  const speech = new SpeechSynthesisUtterance(cleanedText);
+  speech.lang = "en-US";
+  speech.pitch = 1.0; // default pitch
+  speech.rate = 1.0;
+  window.speechSynthesis.speak(speech);
+}
+let recentMessage = "";
 //append messages to the chat box
 export function appendMessage(message) {
   const messageElement = document.createElement("div");
   messageElement.innerHTML = `<p class="botText"><span>${message}</span>`;
   $("#chatbox").append(messageElement);
   document.getElementById("chat-bar-bottom").scrollIntoView(true);
+  recentMessage = message;
 }
+
+speakBtn.addEventListener("click", function () {
+  speakText(recentMessage);
+});
 
 //Image map
 
@@ -140,7 +152,8 @@ const imageMapping = {
   embarassing: "./img/embarace.gif",
   embarass: "./img/embarace.gif",
   eat: "./img/eating.gif",
-  birthday: "./img/birthday.gif",
+  "happy birthday": "./img/birthday.gif",
+  "my birthday": "./img/birthday.gif",
   hello: "./img/greeting.gif",
   hi: "./img/greeting.gif",
   goodbye: "./img/greeting.gif",
@@ -163,6 +176,16 @@ function changeAction(userMessage) {
 function handleUserInputs() {
   var user = { message: "" };
   var userMessage = textbox.value;
+  let userMessageText = userMessage.trim();
+  user.message = userMessageText;
+  textbox.value = "";
+  sendMessage(userMessageText);
+  chatBotRespond(userMessageText);
+  changeAction(userMessageText);
+}
+//send message for user speaks
+function handleUserSpeakInputs(userMessage = textbox.value) {
+  var user = { message: "" };
 
   let userMessageText = userMessage.trim();
   user.message = userMessageText;
@@ -172,7 +195,18 @@ function handleUserInputs() {
   changeAction(userMessageText);
 }
 
+function processSpokenInput() {
+  const recognition = new webkitSpeechRecognition();
+  recognition.onresult = (event) => {
+    const userMessage = event.results[0][0].transcript;
+
+    handleUserSpeakInputs(userMessage);
+  };
+  recognition.start();
+}
+
 sendBtn.addEventListener("click", handleUserInputs);
+listnBtn.addEventListener("click", processSpokenInput);
 
 textbox.addEventListener("keypress", function (event) {
   if (event.key === "Enter") {

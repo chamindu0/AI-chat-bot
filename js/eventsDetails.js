@@ -13,6 +13,20 @@ const eventDetails = [
       9. Set up a music playlist.
       10. Ensure you have a plan for cleaning up after the party.`,
   },
+    {
+    message: "plan a birthday party",
+    response: `Here are some steps to organize a birthday party:
+      1. Choose a date and time for the party.
+      2. Decide on a theme.
+      3. Create a guest list.
+      4. Send out invitations.
+      5. Plan the menu and order or prepare food.
+      6. Arrange for decorations and party supplies.
+      7. Plan activities and games for the guests.
+      8. Arrange for a cake.
+      9. Set up a music playlist.
+      10. Ensure you have a plan for cleaning up after the party.`,
+  },
   {
     message: "plan conference",
     response: `Here are some steps to organize a conference:

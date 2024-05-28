@@ -10,7 +10,7 @@ export var knowledgeBase = [
     response: "My name is Mr.chat.I am a event management chatbot.How can I help you?",
   },
     {
-    message: "what is your name?",
+    message: "what is your name",
     response: "My name is Mr.chat.I am a event management chatbot.How can I help you?",
   },
       {
@@ -24,7 +24,7 @@ export var knowledgeBase = [
   },
 
   {
-    message: "What is your age?",
+    message: "What is your age",
     response:
       "I am just a chatbot I don't have an age. But if I did, I'd be a very old, unlike some humans I know.",
   },
@@ -43,7 +43,7 @@ export var knowledgeBase = [
       "Don't worry, I'm not a bad joke. I'm just a chatbot. 'ha ha haaaaaaaaa'",
   },
   {
-    message: "how are you?",
+    message: "how are you",
     response:
       "I'm a chatbot, so I don't really have feelings. But if I did, I'd be utterly bored by this conversation.",
   },
@@ -58,7 +58,7 @@ export var knowledgeBase = [
       "Aww, don't be like that. I'm just getting started. Give me a chance",
   },
   {
-    message: "can you dance?",
+    message: "can you dance",
     response:
       "of course I can, look at me dancing., I can dance to any beat I want!",
   },
@@ -123,7 +123,7 @@ export var knowledgeBase = [
     response: "oh yeah, I am a chicken head, look at meeeeeeee..",
   },
   {
-    message: "what do you eat?",
+    message: "what do you eat",
     response: "I like chicken...",
   },
   {
